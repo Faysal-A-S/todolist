@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '1zbo2-ro===29l#t9vzrbu5)hc2a&s#2_h4-gf$mgt_jy^r#ta'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['faysal-todo.herokuapp.com', '127.0.0.1']
 
