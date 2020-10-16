@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="{% static 'css/neumorphism.css'%}">
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+    
+    <script src="{% static 'js/main.js'%}"></script>
+
+</head>
+<body>
+    <header class="header-global">
+        <nav id="navbar-main" aria-label="Primary navigation" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light">
+            <div class="container position-relative">
+                
+                    <div class="row justify-content-center text-center pt-3">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <h1 class="display-2 mb-3 ml-6 ">Todo List Application</h1>
+                            
+                        </div>
+                    </div>
+                
+               
+              
+                <div class="d-flex align-items-center">
+                    
+                  
+                        
+                        
+                           
+                     
+                     {% if user.is_authenticated %}
+                     <div class="mr-3 text-align-center mt-2">
+                        <p class="text-dark font-weight-bold mr-3">Logged in  as <span class="text-success font-weight-bolder">{{user.username}}</span> </p>
+                    </div>
+                    <!-- <a href="https://themesberg.com/product/ui-kits/neumorphism-ui-pro" target="_blank" class="btn btn-primary text-secondary mr-3"><i class="far fa-paper-plane mr-2"></i> Upgrade to PRO</a> -->
+                    <a href="{% url 'logout' %}"  class="btn btn-primary d-none d-md-inline-block"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                     {% endif %}
+                            
+                      
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- <main class="container ">
+        <section>
+            <div class="row mt-10 text-primary">
+                <h3>Don't have an account?  Click here for </h3>
+             </div>
+        </section>
+       
+    </main>   -->
+    
+    {% if user.is_authenticated %}
+        <form action="{% url 'home' %}" method="POST">
+            {% csrf_token %}
+            <div class="row   mt-10 ">
+                <div class="offset-1 col-2 text-center">
+                    <label for="todo" class="label font-weight-bold offset-5">Add Task:</label>
+                </div>
+                <div class="col-6">
+                    
+                    <input class="form-control" type="text"  name="todo" id="todo">
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-primary btn-block" type="submit">
+                        <span class="mr-1"><i class="fas fa-plus-square"></i></span>
+                        Add
+                    </button>
+                </div>
+            </div>
+        </form>
+            
+                
+                    <table class="container table table-responsive-sm table-hover shadow-inset rounded mt-3 ">
+                        <tr>
+                            <th class="border-0" scope="col" id="class3">Date </th>
+                            <th class="border-0" scope="col" id="teacher3">Tasks</th>
+                            
+                            
+                        </tr>
+                        
+                       
+                       {% for todo in todos %}
+                       <tr>
+                        <td class="font-weight-bold">{{todo.date}}</th>
+                        <td class="font-weight-bold">{{todo.task}}</td>
+                        <td class="font-weight-bold"><a class="btn btn-primary" href="{% url 'delete' todo.id %}">
+                            <span class="mr-1" style="color: #ce0303; "><i class="fas fa-trash-alt fa-lg"></i> Delete</span>
+                            
+                        </a></td>
+                       
+                        
+                    </tr>
+                   
+                           
+                       {% endfor %}
+                           
+                    </table>
+                
+          
+           
+    {% else %}
+        
+    <div class="container mt-10  text-center">
+        <h2 class="text-secondary">Don't have an account? Register from here: <a href="{% url 'register' %}"  class="btn btn-primary d-none d-md-inline-block"><i class="fas fa-sign-out-alt"></i> Register</a> </h2>
+        
+    </div>
+    {% endif %}
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
